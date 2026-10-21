@@ -7,7 +7,7 @@ docname: draft-jimenez-core-coap-no-content-latest
 
 category: std
 stream: IETF
-area: Applications
+area: "Web and Internet Transport"
 workgroup: CoRE Working Group
 updates: 7641
 
