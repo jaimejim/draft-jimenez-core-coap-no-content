@@ -23,3 +23,5 @@ package-lock.json
 report.xml
 !requirements.txt
 SESSION.md
+!slides/*.pdf
+slides/.deckcheck-cache.json

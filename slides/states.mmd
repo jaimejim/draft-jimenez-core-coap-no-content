@@ -1,0 +1,5 @@
+flowchart LR
+    A["No resource<br/>4.04 Not Found"] -->|create| B["Resource, no representation<br/>2.06 No Content"]
+    B -->|first value| C["Resource with representation<br/>2.05 Content"]
+    C -->|expire or clear| B
+    C -->|delete| A

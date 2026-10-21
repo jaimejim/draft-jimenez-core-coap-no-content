@@ -1,0 +1,5 @@
+flowchart TB
+    S["Server<br/>sends 2.06 No Content"] --> C["Client without 2.06<br/>success, no details<br/>RFC 7252 Section 5.2"]
+    S --> K["Cache without 2.06<br/>response not stored<br/>RFC 7252 Section 5.6"]
+    S --> O["Observer without 2.06<br/>stays registered<br/>RFC 7641 Section 4.2"]
+    S --> N["Client with 2.06<br/>resource exists,<br/>no representation"]

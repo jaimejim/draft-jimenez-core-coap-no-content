@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant S as Subscriber
+    participant B as Broker
+    participant P as Publisher
+    S->>B: GET /ps/data/t1<br/>Observe: 0
+    B-->>S: 2.06 No Content<br/>Observe: 1
+    P->>B: PUT /ps/data/t1<br/>SenML value
+    B-->>P: 2.04 Changed
+    B-->>S: 2.05 Content<br/>Observe: 2, SenML value
+    Note over B: value expires
+    B-->>S: 2.06 No Content<br/>Observe: 3
