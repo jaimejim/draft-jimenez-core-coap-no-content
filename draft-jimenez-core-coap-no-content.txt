@@ -79,7 +79,7 @@ Table of Contents
      3.2.  Applicable Methods
      3.3.  Distinction from 2.05 (Content) and 4.04 (Not Found)
      3.4.  Caching
-     3.5.  Clients That Do Not Recognize the Code
+     3.5.  Endpoints That Do Not Implement This Document
    4.  Use with Observe
      4.1.  Registration
      4.2.  Notifications
@@ -208,23 +208,41 @@ Table of Contents
    currently has no representation.  Since none of the entity tags can
    match, the server responds with 2.06 (No Content).
 
-3.5.  Clients That Do Not Recognize the Code
+3.5.  Endpoints That Do Not Implement This Document
 
-   Section 5.9 of [RFC7252] defines no generic success code.  A client
-   that does not recognize 2.06 (No Content) can only determine that the
-   request was successful.  Such a client might process the empty
-   payload as a representation, which is the ambiguity this code is
-   meant to remove.
+   An endpoint that does not implement this document handles 2.06 (No
+   Content) by the rule of Section 5.2 of [RFC7252] for an unrecognized
+   Success class code: the request succeeded, without further details.
+   Since a 2.06 response carries neither a payload nor a Content-Format
+   Option, such a client observes exactly what it observes on a 2.05
+   (Content) response with an empty payload and no Content-Format
+   Option, which is one of the responses servers send today in this
+   situation (Section 1).  A client that does not implement this
+   document therefore loses nothing by receiving 2.06, and a client that
+   does gains the distinction this document introduces.
 
-   For this reason, a server SHOULD NOT send 2.06 (No Content) unless it
-   knows the client supports it, either through a specification that
-   requires support (such as an application protocol built on this
-   document) or through configuration.  Otherwise, the server continues
-   to use the response it would have used without this document.
+   A cache that does not implement this document MUST NOT store a 2.06
+   response (Section 5.6 of [RFC7252]).  A cache that does implement it
+   stores the response per Section 3.4.
+
+   An observer that does not implement this document remains registered
+   on a 2.06 notification, since Section 4.2 of [RFC7641] removes
+   observers only on non-2.xx notifications, and treats the notification
+   as an empty representation, as it would a 2.05 (Content) notification
+   with an empty payload.
+
+   For these reasons, a server that implements this document sends 2.06
+   (No Content) whenever Section 3.1 applies, without regard to what it
+   knows about the client.  A server generally cannot know the
+   capabilities of the client, in particular when a proxy is in the
+   path, and each alternative response (Appendix A) is worse for clients
+   that implement this document and no better for clients that do not.
 
 4.  Use with Observe
 
-   This section updates Section 4.2 of [RFC7641].
+   This section describes the use of 2.06 (No Content) with Observe
+   [RFC7641].  Observe is one consumer of the code; the code itself is
+   defined by Section 3 independently of it.
 
 4.1.  Registration
 
@@ -274,15 +292,31 @@ Table of Contents
    2.06 (No Content) is an end-to-end response code.  A CoAP-to-CoAP
    proxy forwards it unchanged and caches it per Section 3.4.
 
-   An HTTP-to-CoAP cross-proxy following [RFC8075] maps a CoAP 2.06 (No
-   Content) response to an HTTP 204 (No Content) response.  This adds a
-   row to Table 2 in Section 7 of [RFC8075].  The proxy translates Max-
-   Age into HTTP freshness information as specified in [RFC8075].
+   A proxy that does not implement this document forwards a 2.06 (No
+   Content) response like any other response and does not cache it
+   (Section 5.6 of [RFC7252]).  A proxy that implements this document
+   does not translate 2.06 for clients that might not recognize it: the
+   response code is end-to-end, and the proxy has no better knowledge of
+   the client than the origin server has (Section 3.5).
 
-   A CoAP-to-HTTP cross-proxy (Section 10.1 of [RFC7252]) maps an HTTP
-   204 (No Content) response to a GET request into a CoAP 2.06 (No
-   Content) response.  For other methods, the existing mappings to 2.04
-   (Changed) and 2.02 (Deleted) apply.
+   [RFC8075] defines no mapping for CoAP response codes absent from
+   Table 2, so the behavior of an HTTP-to-CoAP cross-proxy that does not
+   implement this document is implementation-specific.  A CoAP-to-HTTP
+   cross-proxy that does not implement this document maps HTTP 204 (No
+   Content) in response to GET to 2.05 (Content) with an empty payload,
+   per Section 10.1.1 of [RFC7252].
+
+   An HTTP-to-CoAP cross-proxy that implements this document maps a CoAP
+   2.06 (No Content) response to an HTTP 204 (No Content) response, as
+   if Table 2 in Section 7 of [RFC8075] contained that row.  The proxy
+   translates Max-Age into HTTP freshness information as specified in
+   [RFC8075].
+
+   A CoAP-to-HTTP cross-proxy that implements this document
+   (Section 10.1 of [RFC7252]) maps an HTTP 204 (No Content) response to
+   a GET request into a CoAP 2.06 (No Content) response.  For other
+   methods, the existing mappings to 2.04 (Changed) and 2.02 (Deleted)
+   apply.
 
 6.  Example: Publish-Subscribe Topics
 
@@ -475,6 +509,14 @@ Appendix A.  Design Alternatives
       revisions of [I-D.ietf-core-coap-pubsub]. 2.04 (Changed) is
       defined for the result of PUT and POST, and reusing it for GET
       overloads its meaning.
+
+   Request option signaling support for 2.06:  Would follow the pattern
+      by which 2.03 (Valid) and 2.31 (Continue) are only sent to clients
+      that asked for them.  Costs an option number and a byte per
+      request to protect clients that already treat an unrecognized 2.xx
+      as success (Section 5.2 of [RFC7252]), and the fallback for
+      requests without the option is the empty 2.05 (Content) those
+      clients see anyway.
 
 Acknowledgments
 
