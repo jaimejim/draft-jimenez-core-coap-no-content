@@ -16,7 +16,7 @@ venue:
   github: jaimejim/draft-jimenez-core-coap-no-content
 
 author:
-- name: Jaime Jimenez
+- name: Jaime Jiménez
   org: Ericsson
   email: jaime@iki.fi
 - name: Carsten Bormann
