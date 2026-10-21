@@ -149,9 +149,13 @@ If the initial response to a registration is 2.06 (No Content), the Content-Form
 
 2.06 (No Content) is an end-to-end response code. A CoAP-to-CoAP proxy forwards it unchanged and caches it per {{caching}}.
 
-An HTTP-to-CoAP cross-proxy following {{-http-mapping}} maps a CoAP 2.06 (No Content) response to an HTTP 204 (No Content) response. This adds a row to Table 2 in {{Section 7 of -http-mapping}}. The proxy translates Max-Age into HTTP freshness information as specified in {{-http-mapping}}.
+A proxy that does not implement this document forwards a 2.06 (No Content) response like any other response and does not cache it ({{Section 5.6 of -coap}}). A proxy that implements this document does not translate 2.06 for clients that might not recognize it: the response code is end-to-end, and the proxy has no better knowledge of the client than the origin server has ({{transition}}).
 
-A CoAP-to-HTTP cross-proxy ({{Section 10.1 of -coap}}) maps an HTTP 204 (No Content) response to a GET request into a CoAP 2.06 (No Content) response. For other methods, the existing mappings to 2.04 (Changed) and 2.02 (Deleted) apply.
+{{-http-mapping}} defines no mapping for CoAP response codes absent from Table 2, so the behavior of an HTTP-to-CoAP cross-proxy that does not implement this document is implementation-specific. A CoAP-to-HTTP cross-proxy that does not implement this document maps HTTP 204 (No Content) in response to GET to 2.05 (Content) with an empty payload, per {{Section 10.1.1 of -coap}}.
+
+An HTTP-to-CoAP cross-proxy that implements this document maps a CoAP 2.06 (No Content) response to an HTTP 204 (No Content) response, as if Table 2 in {{Section 7 of -http-mapping}} contained that row. The proxy translates Max-Age into HTTP freshness information as specified in {{-http-mapping}}.
+
+A CoAP-to-HTTP cross-proxy that implements this document ({{Section 10.1 of -coap}}) maps an HTTP 204 (No Content) response to a GET request into a CoAP 2.06 (No Content) response. For other methods, the existing mappings to 2.04 (Changed) and 2.02 (Deleted) apply.
 
 # Example: Publish-Subscribe Topics {#example}
 
