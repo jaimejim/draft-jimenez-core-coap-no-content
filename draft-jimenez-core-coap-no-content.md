@@ -125,7 +125,7 @@ For these reasons, a server that implements this document sends 2.06 (No Content
 
 # Use with Observe {#observe}
 
-This section updates {{Section 4.2 of -observe}}.
+This section describes the use of 2.06 (No Content) with Observe {{-observe}}. Observe is one consumer of the code; the code itself is defined by {{code}} independently of it.
 
 ## Registration {#observe-registration}
 
