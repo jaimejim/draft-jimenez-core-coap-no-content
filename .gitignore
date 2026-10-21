@@ -3,3 +3,4 @@
 *.xml
 .refcache/
 .DS_Store
+!draft-jimenez-core-coap-no-content.txt
