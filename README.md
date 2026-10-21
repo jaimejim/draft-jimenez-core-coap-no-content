@@ -1,9 +1,31 @@
-# The 2.06 (No Content) Response Code for CoAP
+<!-- regenerate: on (set to off if you edit this file) -->
 
-Source for the Internet-Draft `draft-jimenez-core-coap-no-content`.
+# The 2.06 (No Content) Response Code for the Constrained Application Protocol (CoAP)
 
-The draft defines a CoAP success code indicating that the target resource exists but has no current representation, its use with Observe (updating RFC 7641), and its mapping to HTTP 204 (No Content).
+This is the working area for the individual Internet-Draft, "The 2.06 (No Content) Response Code for the Constrained Application Protocol (CoAP)".
 
-Discussion: the CoRE WG mailing list, core@ietf.org.
+* [Editor's Copy](https://jaimejim.github.io/draft-jimenez-core-coap-no-content/#go.draft-jimenez-core-coap-no-content.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-jimenez-core-coap-no-content)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-jimenez-core-coap-no-content)
+* [Compare Editor's Copy to Individual Draft](https://jaimejim.github.io/draft-jimenez-core-coap-no-content/#go.draft-jimenez-core-coap-no-content.diff)
 
-Build: `kdrfc -3 -h draft-jimenez-core-coap-no-content.md`
+
+## Contributing
+
+See the
+[guidelines for contributions](https://github.com/jaimejim/draft-jimenez-core-coap-no-content/blob/main/CONTRIBUTING.md).
+
+The contributing file also has tips on how to make contributions, if you
+don't already know how to do that.
+
+## Command Line Usage
+
+Formatted text and HTML versions of the draft can be built using `make`.
+
+```sh
+$ make
+```
+
+Command line usage requires that you have the necessary software installed.  See
+[the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
+
