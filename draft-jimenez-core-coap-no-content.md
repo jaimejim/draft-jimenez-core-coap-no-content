@@ -30,11 +30,11 @@ author:
 normative:
   RFC7252: coap
   RFC7641: observe
+
+informative:
   RFC8132: etch
   RFC8075: http-mapping
   RFC9110: http-semantics
-
-informative:
   I-D.ietf-core-coap-pubsub:
     title: "A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"
     author:
