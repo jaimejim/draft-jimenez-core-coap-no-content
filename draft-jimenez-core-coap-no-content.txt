@@ -525,7 +525,7 @@ Internet-Draft               CoAP No Content                October 2026
 9.2.  Informative References
 
    [I-D.ietf-core-coap-pubsub]
-              Jimenez, J., Koster, M., and A. Keränen, "A publish-
+              Jiménez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
               ietf-core-coap-pubsub-21, 2 July 2026,
@@ -533,7 +533,7 @@ Internet-Draft               CoAP No Content                October 2026
               coap-pubsub-21>.
 
    [I-D.jimenez-core-coap-diag]
-              Jimenez, J. and C. Bormann, "CoAP Diagnostic Message
+              Jiménez, J. and C. Bormann, "CoAP Diagnostic Message
               Notation", Work in Progress, Internet-Draft, draft-
               jimenez-core-coap-diag-00, 4 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-jimenez-core-

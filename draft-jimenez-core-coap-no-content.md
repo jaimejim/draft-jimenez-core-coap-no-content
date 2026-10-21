@@ -35,8 +35,28 @@ normative:
   RFC9110: http-semantics
 
 informative:
-  I-D.ietf-core-coap-pubsub: pubsub
-  I-D.jimenez-core-coap-diag: coap-diag
+  I-D.ietf-core-coap-pubsub:
+    title: "A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"
+    author:
+    - name: Jaime Jiménez
+      org: Ericsson
+    - name: Michael Koster
+      org: Dogtiger Labs
+    - name: Ari Keränen
+      org: Ericsson
+    date: 2026-07-02
+    seriesinfo:
+      Internet-Draft: draft-ietf-core-coap-pubsub-21
+  I-D.jimenez-core-coap-diag:
+    title: "CoAP Diagnostic Message Notation"
+    author:
+    - name: Jaime Jiménez
+      org: Ericsson
+    - name: Carsten Bormann
+      org: Universität Bremen TZI
+    date: 2026-07-04
+    seriesinfo:
+      Internet-Draft: draft-jimenez-core-coap-diag-00
 
 entity:
   SELF: "[RFC-XXXX]"
@@ -51,7 +71,7 @@ This document defines the 2.06 (No Content) response code for the Constrained Ap
 
 CoAP {{-coap}} defines a set of success response codes in {{Section 5.9.1 of -coap}}. A GET request that succeeds returns 2.05 (Content) with a representation of the target resource. A GET request on a resource that does not exist returns 4.04 (Not Found). CoAP has no code for the case in between: the resource exists, but no representation of it is available yet, or the last representation has been removed or has expired.
 
-This case occurs in several CoRE applications. In the publish-subscribe architecture of {{-pubsub}}, a topic-data resource has no content between topic creation and the first publication. Because a GET or Observe registration on such a resource cannot succeed, that specification introduces a "half created" topic state, answers requests in that state with 4.04 (Not Found), and provides an "initialize" property so that a creator can install placeholder data. A client then has to infer the topic state from which operations fail. A sensor whose last reading has expired, or a resource whose value has been cleared, have the same gap.
+This case occurs in several CoRE applications. In the publish-subscribe architecture of {{I-D.ietf-core-coap-pubsub}}, a topic-data resource has no content between topic creation and the first publication. Because a GET or Observe registration on such a resource cannot succeed, that specification introduces a "half created" topic state, answers requests in that state with 4.04 (Not Found), and provides an "initialize" property so that a creator can install placeholder data. A client then has to infer the topic state from which operations fail. A sensor whose last reading has expired, or a resource whose value has been cleared, have the same gap.
 
 Servers fill the gap today in one of three ways, each with a drawback. A 4.04 (Not Found) response terminates an Observe registration ({{Section 4.2 of -observe}}), so a subscriber cannot register interest until data exists and has to poll instead. A 2.05 (Content) response with an empty payload is ambiguous: a zero-length payload is a valid representation in some Content-Formats (for instance, an empty text/plain string), so the client cannot tell "the value is empty" from "there is no value". A 5.03 (Service Unavailable) response signals a server-side failure when no failure has occurred.
 
@@ -131,7 +151,7 @@ A CoAP-to-HTTP cross-proxy ({{Section 10.1 of -coap}}) maps an HTTP 204 (No Cont
 
 # Example: Publish-Subscribe Topics {#example}
 
-This section is informative. Messages are written in the CoAP Diagnostic Message Notation {{-coap-diag}}. The section shows how a publish-subscribe broker following {{-pubsub}} could use 2.06 (No Content), assuming the broker creates the topic-data resource together with the topic.
+This section is informative. Messages are written in the CoAP Diagnostic Message Notation {{I-D.jimenez-core-coap-diag}}. The section shows how a publish-subscribe broker following {{I-D.ietf-core-coap-pubsub}} could use 2.06 (No Content), assuming the broker creates the topic-data resource together with the topic.
 
 A subscriber reads the topic-data resource before any data has been published, then registers for notifications. Both requests succeed:
 
@@ -226,12 +246,12 @@ This appendix records the alternatives considered. It is to be removed before pu
 : Signals a temporary server failure; caches and clients treat it as an error, and it also terminates Observe registrations.
 
 Placeholder representation:
-: An application-defined "empty" value, as with the "initialize" property of {{-pubsub}}, works for formats that have an empty value, but each application defines its own and generic clients cannot recognize it.
+: An application-defined "empty" value, as with the "initialize" property of {{I-D.ietf-core-coap-pubsub}}, works for formats that have an empty value, but each application defines its own and generic clients cannot recognize it.
 
 2.04 (Changed) in response to GET:
-: Used for this purpose in early revisions of {{-pubsub}}. 2.04 (Changed) is defined for the result of PUT and POST, and reusing it for GET overloads its meaning.
+: Used for this purpose in early revisions of {{I-D.ietf-core-coap-pubsub}}. 2.04 (Changed) is defined for the result of PUT and POST, and reusing it for GET overloads its meaning.
 
 # Acknowledgments {#acknowledgments}
 {:numbered="false"}
 
-Mike Bishop suggested a No Content success code during the AD review of {{-pubsub}}. Michael Koster proposed a dedicated 2.06 code in issue 4 of the {{-pubsub}} repository, including the requirement that a client stop using a stale value.
+Mike Bishop suggested a No Content success code during the AD review of {{I-D.ietf-core-coap-pubsub}}. Michael Koster proposed a dedicated 2.06 code in issue 4 of the {{I-D.ietf-core-coap-pubsub}} repository, including the requirement that a client stop using a stale value.
