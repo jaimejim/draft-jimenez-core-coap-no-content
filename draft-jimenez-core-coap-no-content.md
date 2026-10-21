@@ -259,6 +259,9 @@ Placeholder representation:
 2.04 (Changed) in response to GET:
 : Used for this purpose in early revisions of {{I-D.ietf-core-coap-pubsub}}. 2.04 (Changed) is defined for the result of PUT and POST, and reusing it for GET overloads its meaning.
 
+Request option signaling support for 2.06:
+: Would follow the pattern by which 2.03 (Valid) and 2.31 (Continue) are only sent to clients that asked for them. Costs an option number and a byte per request to protect clients that already treat an unrecognized 2.xx as success ({{Section 5.2 of -coap}}), and the fallback for requests without the option is the empty 2.05 (Content) those clients see anyway.
+
 # Acknowledgments {#acknowledgments}
 {:numbered="false"}
 
