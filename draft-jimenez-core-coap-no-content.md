@@ -113,11 +113,15 @@ A 2.06 (No Content) response is cacheable. Caches use the Max-Age Option to dete
 
 A client MAY include ETag Options in a GET request on a resource that currently has no representation. Since none of the entity tags can match, the server responds with 2.06 (No Content).
 
-## Clients That Do Not Recognize the Code {#unknown}
+## Endpoints That Do Not Implement This Document {#transition}
 
-{{Section 5.9 of -coap}} defines no generic success code. A client that does not recognize 2.06 (No Content) can only determine that the request was successful. Such a client might process the empty payload as a representation, which is the ambiguity this code is meant to remove.
+An endpoint that does not implement this document handles 2.06 (No Content) by the rule of {{Section 5.2 of -coap}} for an unrecognized Success class code: the request succeeded, without further details. Since a 2.06 response carries neither a payload nor a Content-Format Option, such a client observes exactly what it observes on a 2.05 (Content) response with an empty payload and no Content-Format Option, which is one of the responses servers send today in this situation ({{introduction}}). A client that does not implement this document therefore loses nothing by receiving 2.06, and a client that does gains the distinction this document introduces.
 
-For this reason, a server SHOULD NOT send 2.06 (No Content) unless it knows the client supports it, either through a specification that requires support (such as an application protocol built on this document) or through configuration. Otherwise, the server continues to use the response it would have used without this document.
+A cache that does not implement this document MUST NOT store a 2.06 response ({{Section 5.6 of -coap}}). A cache that does implement it stores the response per {{caching}}.
+
+An observer that does not implement this document remains registered on a 2.06 notification, since {{Section 4.2 of -observe}} removes observers only on non-2.xx notifications, and treats the notification as an empty representation, as it would a 2.05 (Content) notification with an empty payload.
+
+For these reasons, a server that implements this document sends 2.06 (No Content) whenever {{semantics}} applies, without regard to what it knows about the client. A server generally cannot know the capabilities of the client, in particular when a proxy is in the path, and each alternative response ({{alternatives}}) is worse for clients that implement this document and no better for clients that do not.
 
 # Use with Observe {#observe}
 
