@@ -32,6 +32,7 @@ normative:
   RFC7641: observe
 
 informative:
+  RFC8710: multipart
   RFC8132: etch
   RFC8075: http-mapping
   RFC9110: http-semantics
@@ -254,7 +255,13 @@ This appendix records the alternatives considered. It is to be removed before pu
 : Signals a temporary server failure; caches and clients treat it as an error, and it also terminates Observe registrations.
 
 Placeholder representation:
-: An application-defined "empty" value, as with the "initialize" property of {{I-D.ietf-core-coap-pubsub}}, works for formats that have an empty value, but each application defines its own and generic clients cannot recognize it.
+: An application-defined "empty" value, as with the "initialize" property of {{I-D.ietf-core-coap-pubsub}}. Media types that have an empty, null, or undefined value can express the absence of content within the type. The meaning of that value is specific to each media type, existing media types cannot be retrofitted with one, and a generic client cannot recognize it.
+
+Null media type:
+: A dedicated Content-Format that denotes the absence of content, sent in place of the requested representation. A response in this format conflicts with an Accept Option in the request. Introducing it would require changing the semantics of Accept to permit this format in any response or notification.
+
+Multipart wrapper:
+: An application/multipart-core container {{-multipart}} that holds either a marker for the absence of content or the intended representation, so that one Content-Format covers both states. The outer format is fixed, so the client can no longer select the representation format with the Accept Option.
 
 2.04 (Changed) in response to GET:
 : Used for this purpose in early revisions of {{I-D.ietf-core-coap-pubsub}}. 2.04 (Changed) is defined for the result of PUT and POST, and reusing it for GET overloads its meaning.
