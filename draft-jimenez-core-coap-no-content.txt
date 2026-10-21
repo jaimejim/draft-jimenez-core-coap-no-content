@@ -450,22 +450,6 @@ Table of Contents
               DOI 10.17487/RFC7641, September 2015,
               <https://www.rfc-editor.org/rfc/rfc7641>.
 
-   [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
-              E. Dijk, "Guidelines for Mapping Implementations: HTTP to
-              the Constrained Application Protocol (CoAP)", RFC 8075,
-              DOI 10.17487/RFC8075, February 2017,
-              <https://www.rfc-editor.org/rfc/rfc8075>.
-
-   [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
-              FETCH Methods for the Constrained Application Protocol
-              (CoAP)", RFC 8132, DOI 10.17487/RFC8132, April 2017,
-              <https://www.rfc-editor.org/rfc/rfc8132>.
-
-   [RFC9110]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
-              Ed., "HTTP Semantics", STD 97, RFC 9110,
-              DOI 10.17487/RFC9110, June 2022,
-              <https://www.rfc-editor.org/rfc/rfc9110>.
-
 9.2.  Informative References
 
    [I-D.ietf-core-coap-pubsub]
@@ -482,6 +466,27 @@ Table of Contents
               jimenez-core-coap-diag-00, 4 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-jimenez-core-
               coap-diag-00>.
+
+   [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
+              E. Dijk, "Guidelines for Mapping Implementations: HTTP to
+              the Constrained Application Protocol (CoAP)", RFC 8075,
+              DOI 10.17487/RFC8075, February 2017,
+              <https://www.rfc-editor.org/rfc/rfc8075>.
+
+   [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
+              FETCH Methods for the Constrained Application Protocol
+              (CoAP)", RFC 8132, DOI 10.17487/RFC8132, April 2017,
+              <https://www.rfc-editor.org/rfc/rfc8132>.
+
+   [RFC8710]  Fossati, T., Hartke, K., and C. Bormann, "Multipart
+              Content-Format for the Constrained Application Protocol
+              (CoAP)", RFC 8710, DOI 10.17487/RFC8710, February 2020,
+              <https://www.rfc-editor.org/rfc/rfc8710>.
+
+   [RFC9110]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Semantics", STD 97, RFC 9110,
+              DOI 10.17487/RFC9110, June 2022,
+              <https://www.rfc-editor.org/rfc/rfc9110>.
 
 Appendix A.  Design Alternatives
 
@@ -502,9 +507,24 @@ Appendix A.  Design Alternatives
       terminates Observe registrations.
 
    Placeholder representation:  An application-defined "empty" value, as
-      with the "initialize" property of [I-D.ietf-core-coap-pubsub],
-      works for formats that have an empty value, but each application
-      defines its own and generic clients cannot recognize it.
+      with the "initialize" property of [I-D.ietf-core-coap-pubsub].
+      Media types that have an empty, null, or undefined value can
+      express the absence of content within the type.  The meaning of
+      that value is specific to each media type, existing media types
+      cannot be retrofitted with one, and a generic client cannot
+      recognize it.
+
+   Null media type:  A dedicated Content-Format that denotes the absence
+      of content, sent in place of the requested representation.  A
+      response in this format conflicts with an Accept Option in the
+      request.  Introducing it would require changing the semantics of
+      Accept to permit this format in any response or notification.
+
+   Multipart wrapper:  An application/multipart-core container [RFC8710]
+      that holds either a marker for the absence of content or the
+      intended representation, so that one Content-Format covers both
+      states.  The outer format is fixed, so the client can no longer
+      select the representation format with the Accept Option.
 
    2.04 (Changed) in response to GET:  Used for this purpose in early
       revisions of [I-D.ietf-core-coap-pubsub]. 2.04 (Changed) is
