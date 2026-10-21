@@ -115,17 +115,17 @@ A client MAY include ETag Options in a GET request on a resource that currently 
 
 ## Endpoints That Do Not Implement This Document {#transition}
 
-An endpoint that does not implement this document handles 2.06 (No Content) by the rule of {{Section 5.2 of -coap}} for an unrecognized Success class code: the request succeeded, without further details. Since a 2.06 response carries neither a payload nor a Content-Format Option, such a client observes exactly what it observes on a 2.05 (Content) response with an empty payload and no Content-Format Option, which is one of the responses servers send today in this situation ({{introduction}}). A client that does not implement this document therefore loses nothing by receiving 2.06, and a client that does gains the distinction this document introduces.
+An endpoint that does not implement this document handles 2.06 (No Content) by the rule of {{Section 5.2 of -coap}} for an unrecognized Success class code: the request succeeded, without further details. Since a 2.06 response carries neither a payload nor a Content-Format Option, such a client observes what it observes on a 2.05 (Content) response with an empty payload and no Content-Format Option, which is one of the responses listed in {{introduction}}. Receiving 2.06 therefore gives such a client the same information as the response it receives from a server that does not implement this document.
 
-A cache that does not implement this document MUST NOT store a 2.06 response ({{Section 5.6 of -coap}}). A cache that does implement it stores the response per {{caching}}.
+A cache that does not implement this document does not store a 2.06 response, as {{Section 5.6 of -coap}} requires for unrecognized Success class codes. A cache that does implement it stores the response per {{caching}}.
 
 An observer that does not implement this document remains registered on a 2.06 notification, since {{Section 4.2 of -observe}} removes observers only on non-2.xx notifications, and treats the notification as an empty representation, as it would a 2.05 (Content) notification with an empty payload.
 
-For these reasons, a server that implements this document sends 2.06 (No Content) whenever {{semantics}} applies, without regard to what it knows about the client. A server generally cannot know the capabilities of the client, in particular when a proxy is in the path, and each alternative response ({{alternatives}}) is worse for clients that implement this document and no better for clients that do not.
+For these reasons, a server that implements this document sends 2.06 (No Content) whenever {{semantics}} applies, without regard to what it knows about the client. A server has no signal of the capabilities of the client, and when a proxy is in the path it does not see the client at all. Each alternative response ({{introduction}}) is worse for clients that implement this document and no better for clients that do not.
 
 # Use with Observe {#observe}
 
-This section describes the use of 2.06 (No Content) with Observe {{-observe}}. Observe is one consumer of the code; the code itself is defined by {{code}} independently of it.
+Observe {{-observe}} is one consumer of 2.06 (No Content); the code itself is defined by {{code}} independently of it. The following subsections specify how registrations and notifications use the code.
 
 ## Registration {#observe-registration}
 
@@ -260,7 +260,7 @@ Placeholder representation:
 : Used for this purpose in early revisions of {{I-D.ietf-core-coap-pubsub}}. 2.04 (Changed) is defined for the result of PUT and POST, and reusing it for GET overloads its meaning.
 
 Request option signaling support for 2.06:
-: Would follow the pattern by which 2.03 (Valid) and 2.31 (Continue) are only sent to clients that asked for them. Costs an option number and a byte per request to protect clients that already treat an unrecognized 2.xx as success ({{Section 5.2 of -coap}}), and the fallback for requests without the option is the empty 2.05 (Content) those clients see anyway.
+: Would follow the pattern by which 2.03 (Valid) and 2.31 (Continue) are only sent to clients that asked for them. Costs an option number and a byte per request to protect clients that already treat an unrecognized 2.xx as success ({{Section 5.2 of -coap}}), and the fallback for requests without the option is the empty 2.05 (Content) response those clients receive without this document.
 
 # Acknowledgments {#acknowledgments}
 {:numbered="false"}
