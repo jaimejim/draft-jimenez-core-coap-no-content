@@ -214,16 +214,16 @@ Table of Contents
    Content) by the rule of Section 5.2 of [RFC7252] for an unrecognized
    Success class code: the request succeeded, without further details.
    Since a 2.06 response carries neither a payload nor a Content-Format
-   Option, such a client observes exactly what it observes on a 2.05
-   (Content) response with an empty payload and no Content-Format
-   Option, which is one of the responses servers send today in this
-   situation (Section 1).  A client that does not implement this
-   document therefore loses nothing by receiving 2.06, and a client that
-   does gains the distinction this document introduces.
+   Option, such a client observes what it observes on a 2.05 (Content)
+   response with an empty payload and no Content-Format Option, which is
+   one of the responses listed in Section 1.  Receiving 2.06 therefore
+   gives such a client the same information as the response it receives
+   from a server that does not implement this document.
 
-   A cache that does not implement this document MUST NOT store a 2.06
-   response (Section 5.6 of [RFC7252]).  A cache that does implement it
-   stores the response per Section 3.4.
+   A cache that does not implement this document does not store a 2.06
+   response, as Section 5.6 of [RFC7252] requires for unrecognized
+   Success class codes.  A cache that does implement it stores the
+   response per Section 3.4.
 
    An observer that does not implement this document remains registered
    on a 2.06 notification, since Section 4.2 of [RFC7641] removes
@@ -233,16 +233,17 @@ Table of Contents
 
    For these reasons, a server that implements this document sends 2.06
    (No Content) whenever Section 3.1 applies, without regard to what it
-   knows about the client.  A server generally cannot know the
-   capabilities of the client, in particular when a proxy is in the
-   path, and each alternative response (Appendix A) is worse for clients
-   that implement this document and no better for clients that do not.
+   knows about the client.  A server has no signal of the capabilities
+   of the client, and when a proxy is in the path it does not see the
+   client at all.  Each alternative response (Section 1) is worse for
+   clients that implement this document and no better for clients that
+   do not.
 
 4.  Use with Observe
 
-   This section describes the use of 2.06 (No Content) with Observe
-   [RFC7641].  Observe is one consumer of the code; the code itself is
-   defined by Section 3 independently of it.
+   Observe [RFC7641] is one consumer of 2.06 (No Content); the code
+   itself is defined by Section 3 independently of it.  The following
+   subsections specify how registrations and notifications use the code.
 
 4.1.  Registration
 
@@ -515,8 +516,8 @@ Appendix A.  Design Alternatives
       that asked for them.  Costs an option number and a byte per
       request to protect clients that already treat an unrecognized 2.xx
       as success (Section 5.2 of [RFC7252]), and the fallback for
-      requests without the option is the empty 2.05 (Content) those
-      clients see anyway.
+      requests without the option is the empty 2.05 (Content) response
+      those clients receive without this document.
 
 Acknowledgments
 
