@@ -19,6 +19,13 @@ author:
 - name: Jaime Jimenez
   org: Ericsson
   email: jaime@iki.fi
+- name: Carsten Bormann
+  org: Universität Bremen TZI
+  street: Postfach 330440
+  city: D-28359 Bremen
+  country: Germany
+  phone: "+49-421-218-63921"
+  email: cabo@tzi.org
 
 normative:
   RFC7252: coap
