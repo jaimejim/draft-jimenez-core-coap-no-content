@@ -1,0 +1,163 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-10-22T00:26:53.137424+00:00",
+  "repo": "jaimejim/draft-jimenez-core-coap-no-content",
+  "labels": [
+    {
+      "name": "accessibility",
+      "description": "Barrier affecting people with disabilities",
+      "color": "f143ab"
+    },
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOVSBv6c8AAAABYzPRgA",
+      "title": "Does this document update RFC 7641?",
+      "url": "https://github.com/jaimejim/draft-jimenez-core-coap-no-content/issues/1",
+      "state": "OPEN",
+      "author": "jaimejim",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The header says \"Updates: 7641\" and RFC 7641 is a normative reference. draft-bormann-core-no-content lists RFC 7641 as informative with no Updates header, and Carsten's comment of 2026-10-21 is that Observe is one use of the code among several.\n\nThe two positions differ on one sentence. Section 4.2 of RFC 7641 requires that the Content-Format of a 2.xx notification be the same as the one used in the initial response. A 2.06 (No Content) notification carries no Content-Format Option. Section 4.3 of this document exempts 2.06 notifications from that rule.\n\nTwo readings:\n\n1. The RFC 7641 rule governs representations. A 2.06 notification carries none, so the rule does not apply and nothing is relaxed. Section 4.3 becomes a clarification, RFC 7641 can be informative, and the Updates header goes.\n2. The rule applies to every 2.xx notification as written. Exempting 2.06 relaxes a MUST in RFC 7641, which requires the Updates header and a normative reference.\n\nSection 4.2 of RFC 7641 also says a notification SHOULD have a 2.05 or 2.03 code. That is a SHOULD, so adding 2.06 to the list does not by itself require an update.\n\nProposed resolution: adopt reading 1 if there is agreement that the Content-Format rule is about representations; otherwise keep the current header. Either way, Section 4 is phrased as a description of how Observe uses the code, not as a modification of RFC 7641.\n",
+      "createdAt": "2026-10-21T11:07:33Z",
+      "updatedAt": "2026-10-21T11:14:07Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "body": "Compare 2.03 -- I think reading 1 is the right one.",
+          "createdAt": "2026-10-21T11:14:07Z",
+          "updatedAt": "2026-10-21T11:14:07Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOVSBv6c8AAAABYzPSxw",
+      "title": "ETag on 2.06 (No Content) responses",
+      "url": "https://github.com/jaimejim/draft-jimenez-core-coap-no-content/issues/2",
+      "state": "OPEN",
+      "author": "jaimejim",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 3.1 says a server MUST NOT include an ETag Option in a 2.06 (No Content) response, since there is no representation to tag. draft-bormann-core-no-content lists \"Interaction with other CoAP Options: ETag\" as an open item.\n\nConsequences of the current rule:\n\n- A 2.06 response is not validatable. A client cannot revalidate the empty state, and a server cannot answer 2.03 (Valid) for it.\n- Section 3.4 lets a client send ETag Options in a GET on an empty resource. None can match, so the response is 2.06.\n- The registration template in Section 12.1.2 of RFC 7252 asks whether the response is validatable. The answer is no and should be stated in the IANA section.\n\nHTTP 204 (No Content) permits an ETag header field (Section 15.3.5 of RFC 9110), where it describes the selected representation that would have been sent for a 200. That rationale does not transfer: a 2.06 is a response to GET and there is no representation that would have been sent.\n\nAlternative: allow an ETag on 2.06 that tags the empty state, so that a client can revalidate with 2.03. This costs an entity tag that identifies no representation and complicates the If-Match and If-None-Match semantics discussed separately.\n\nProposed resolution: keep the prohibition, add \"not validatable\" to the IANA section, and record the alternative in Appendix A.\n",
+      "createdAt": "2026-10-21T11:07:34Z",
+      "updatedAt": "2026-10-21T11:16:37Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "body": "Generally, I think the analogy of 2.06 with 204 is rather weak.\n\nThis might make us use a different name than HTTP's \"No content\".\n",
+          "createdAt": "2026-10-21T11:16:25Z",
+          "updatedAt": "2026-10-21T11:16:37Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOVSBv6c8AAAABYzPUDA",
+      "title": "Scope: no representation at all, or no representation of the intended type",
+      "url": "https://github.com/jaimejim/draft-jimenez-core-coap-no-content/issues/3",
+      "state": "OPEN",
+      "author": "jaimejim",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 3.1 defines 2.06 (No Content) as indicating that the target resource exists and has no current representation to transfer. This is absolute: no representation in any format.\n\nThe abstract of draft-bormann-core-no-content describes the state as a resource that does not yet \"provide a representation of the intended type\". That phrasing leaves room for a resource that has a representation in some format other than the one the resource is meant to serve, or the one the client asked for.\n\nUnder the current text, a resource that has a representation in a format the client did not request is handled by the Accept Option and 4.06 (Not Acceptable), not by 2.06. Section 4.3 relies on this: a client that needs a specific Content-Format includes Accept in the registration so the server can reject it with 4.06 before any data exists.\n\nWidening the definition to \"no representation of the intended type\" would make 2.06 overlap 4.06 and would require defining \"intended type\" per resource.\n\nProposed resolution: keep the current definition. Add a sentence to Section 3.3 stating that a resource with a representation in a format the client did not request is not in the No Content state, and that the Accept Option and 4.06 apply.\n",
+      "createdAt": "2026-10-21T11:07:35Z",
+      "updatedAt": "2026-10-21T11:18:03Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "body": "Hmm, 2.06 is for a case where there is no representation at all.  If there is and it doesn't fit, the response should be 4.06, never 2.06.",
+          "createdAt": "2026-10-21T11:18:03Z",
+          "updatedAt": "2026-10-21T11:18:03Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOVSBv6c8AAAABYzUj0A",
+      "title": "Legacy caches that store an unrecognized 2.xx: evidence from libcoap",
+      "url": "https://github.com/jaimejim/draft-jimenez-core-coap-no-content/issues/4",
+      "state": "OPEN",
+      "author": "jaimejim",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 3.5 states that a cache that does not implement this document does not store a 2.06 (No Content) response, as Section 5.6 of RFC 7252 requires for unrecognized Success class codes.\n\nAn RFC 7252 conformance audit of libcoap (obgm/libcoap#2003, May 2026) tested that rule with 2.06 as the unknown code. A libcoap forward proxy cached the 2.06 response and served it to a second client without contacting the origin. The maintainer fixed it in the develop branch in July 2026; libcoap now caches 2.01 through 2.05 by enumeration.\n\nTwo points for the transition text:\n\n1. A cache that stores a 2.06 despite Section 5.6 holds it for the Max-Age in the response. That is the behavior Section 3.4 specifies for a cache that implements this document. The transition argument therefore holds for caches that break the rule as well as for caches that follow it.\n\n2. Implementations that enforce Section 5.6 with an allowlist of cacheable codes need 2.06 added to that list once the code is registered. Until then a 2.06 passes through such a cache unstored. This is the one change a cache implementation makes to support this document.\n\nProposed: add two sentences to Section 3.5 covering both points. No change to the normative text.\n\nRelated: obgm/libcoap#2002 (proxy timeout not mapped to 5.04) is from the same audit and does not concern this document.\n",
+      "createdAt": "2026-10-21T11:13:47Z",
+      "updatedAt": "2026-10-21T11:20:43Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "body": "7252 5.6 para 3:\n\n```\n   Unlike HTTP, the cacheability of CoAP responses does not depend on\n   the request method, but it depends on the Response Code.  The\n   cacheability of each Response Code is defined along the Response Code\n   definitions in Section 5.9.  Response Codes that indicate success and\n   are unrecognized by an endpoint MUST NOT be cached.\n```\n",
+          "createdAt": "2026-10-21T11:20:09Z",
+          "updatedAt": "2026-10-21T11:20:09Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "body": "(Where endpoint can be the client part of a proxy)\n",
+          "createdAt": "2026-10-21T11:20:43Z",
+          "updatedAt": "2026-10-21T11:20:43Z"
+        }
+      ]
+    }
+  ],
+  "pulls": []
+}
