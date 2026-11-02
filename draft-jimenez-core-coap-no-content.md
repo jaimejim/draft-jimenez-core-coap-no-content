@@ -19,6 +19,7 @@ author:
 - name: Jaime Jiménez
   org: Ericsson
   email: jaime@iki.fi
+  country: Finland
 - name: Carsten Bormann
   org: Universität Bremen TZI
   street: Postfach 330440
@@ -37,27 +38,7 @@ informative:
   RFC8075: http-mapping
   RFC9110: http-semantics
   I-D.ietf-core-coap-pubsub:
-    title: "A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"
-    author:
-    - name: Jaime Jiménez
-      org: Ericsson
-    - name: Michael Koster
-      org: Dogtiger Labs
-    - name: Ari Keränen
-      org: Ericsson
-    date: 2026-07-02
-    seriesinfo:
-      Internet-Draft: draft-ietf-core-coap-pubsub-21
   I-D.jimenez-core-coap-diag:
-    title: "CoAP Diagnostic Message Notation"
-    author:
-    - name: Jaime Jiménez
-      org: Ericsson
-    - name: Carsten Bormann
-      org: Universität Bremen TZI
-    date: 2026-07-04
-    seriesinfo:
-      Internet-Draft: draft-jimenez-core-coap-diag-00
 
 entity:
   SELF: "[RFC-XXXX]"
