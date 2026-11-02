@@ -6,7 +6,7 @@ CoRE Working Group                                            J. Jiménez
 Internet-Draft                                                  Ericsson
 Updates: 7641 (if approved)                                   C. Bormann
 Intended status: Standards Track                  Universität Bremen TZI
-Expires: 24 April 2027                                   21 October 2026
+Expires: 6 May 2027                                      2 November 2026
 
 
   The 2.06 (No Content) Response Code for the Constrained Application
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2027.
+   This Internet-Draft will expire on 6 May 2027.
 
 Copyright Notice
 
@@ -453,19 +453,19 @@ Table of Contents
 9.2.  Informative References
 
    [I-D.ietf-core-coap-pubsub]
-              Jiménez, J., Koster, M., and A. Keränen, "A publish-
+              Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-21, 2 July 2026,
+              ietf-core-coap-pubsub-22, 2 November 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-21>.
+              coap-pubsub-22>.
 
    [I-D.jimenez-core-coap-diag]
-              Jiménez, J. and C. Bormann, "CoAP Diagnostic Message
+              Jimenez, J. and C. Bormann, "CoAP Diagnostic Message
               Notation", Work in Progress, Internet-Draft, draft-
-              jimenez-core-coap-diag-00, 4 July 2026,
+              jimenez-core-coap-diag-01, 2 November 2026,
               <https://datatracker.ietf.org/doc/html/draft-jimenez-core-
-              coap-diag-00>.
+              coap-diag-01>.
 
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
               E. Dijk, "Guidelines for Mapping Implementations: HTTP to
@@ -550,6 +550,7 @@ Authors' Addresses
 
    Jaime Jiménez
    Ericsson
+   Finland
    Email: jaime@iki.fi
 
 
