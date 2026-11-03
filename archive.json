@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-01T00:21:47.885369+00:00",
+  "timestamp": "2026-11-03T00:17:28.263835+00:00",
   "repo": "jaimejim/draft-jimenez-core-coap-no-content",
   "labels": [
     {
@@ -159,5 +159,34 @@
       ]
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 5,
+      "id": "PR_kwDOVSBv6c8AAAABMWmnNQ",
+      "title": "Metadata cleanup",
+      "url": "https://github.com/jaimejim/draft-jimenez-core-coap-no-content/pull/5",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-02T16:47:19Z",
+      "updatedAt": "2026-11-02T19:05:54Z",
+      "baseRepository": "jaimejim/draft-jimenez-core-coap-no-content",
+      "baseRefName": "main",
+      "baseRefOid": "2d0a50b24b3c517baed481f47d7840b5a075d86c",
+      "headRepository": "cabo/draft-jimenez-core-coap-no-content",
+      "headRefName": "main",
+      "headRefOid": "6d46fa78f2354ad379bfc841c99116dadb9301ef",
+      "closedAt": "2026-11-02T19:05:54Z",
+      "mergedAt": "2026-11-02T19:05:54Z",
+      "mergedBy": "jaimejim",
+      "mergeCommit": {
+        "oid": "019e756021e36f91f9766ec740e21067a6020cfd"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
